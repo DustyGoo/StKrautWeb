@@ -1,0 +1,69 @@
+<!DOCKTYPE html>
+
+<html lang="ru">
+
+	<head>
+		<title>St. Kraut - Official Band Website</title>
+		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+	</head>
+	<body>
+		<header>
+			{% if current_user.is_authenticated %}
+			<label class="login-label">Hello, {{ current_user.login }}! 
+				<a href="{{ url_for('secrettrack') }}" class="login-label2">
+				Reach Something That We Don't Remember here
+				</a>
+			</label>
+			{% else %}
+			<a href="{{ url_for('register') }}" class="register-btn">Join</a>
+			<a href="{{ url_for('auth') }}" class="login-btn">Login</a>
+			{% endif %}
+		</header>
+		<div class="background">
+			<div class="container">
+				<div class="bandname">• St. Kraut •</div>
+				<div class="motto"><br>The Music of Zen and Groove</div>
+				<div class="about_trilogy">About the Roerich Trilogy<br><br> "Boris & Gleb" is the first of three jam albums recorded by St. Kraut during three sessions in the summer of 2017. All of them were withstood by the Theory of Obscurity. It was invented in the 70s by the mythical philosopher N. Senada and The Residents band. According to the Theory of Obscurity, music should be released only when the author himself forgets about it. Therefore, at the beginning of 2020 St. Kraut lost all their memories of the content of these jams, so it's time to release this music.
+					<br><br>
+					It was decided to illustrate the entire trilogy with paintings by Nicholai Roerich, the favorite artist of each of the St. Kraut's musicians. However, not only the concept of the Roerich trilogy and the Theory of Obscurity brings these releases together.
+					<br><br>
+					This instrumental music consists of three main elements: motorik kraut, psychedelic, and ambient. Zen and groove equally create the atmosphere of this album. Long jams lead listeners through their own thoughts somewhere into the inner space with a trail of sound layers. Music of St. Kraut is perfect for physical and spiritual practices, for mental and road trips, and for everyday adventures of course.
+					<br><br>
+					The journey begins right here.</div>
+				<div class="albums">
+					<div class="ep1">
+					<a href="{{ url_for('ep1') }}" class="coverlink">
+						<img src="/static/img/CoverArt1.jpg" alt="Обложка" class="cover">
+					</a>
+					<a href="{{ url_for('ep1') }}" class="titlelink">
+						Boris<br>
+						&<br>
+						Gleb
+					</a>
+					</div>
+					<div class="ep2">
+					<a href="{{ url_for('ep2') }}" class="coverlink">
+						<img src="/static/img/CoverArt2.jpg" alt="Обложка" class="cover">
+					</a>
+					<a href="{{ url_for('ep2') }}" class="titlelink">
+						Ann<br>
+						Without<br>
+						Hand
+					</a>
+					</div>
+					<div class="ep3">
+					<a href="{{ url_for('ep3') }}" class="coverlink">
+						<img src="/static/img/CoverArt3.jpg" alt="Обложка" class="cover">
+					</a>
+					<a href="{{ url_for('ep3') }}" class="titlelink">
+						Fire Madness<br>
+						From<br>
+						Outer Space
+					</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
