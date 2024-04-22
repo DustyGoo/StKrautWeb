@@ -1,3 +1,7 @@
+"""
+Модуль проекта StKrautWeb для взаимосвязи базы данных и приложения.
+"""
+
 from flask_login import UserMixin
 
 from app import app, db, manager

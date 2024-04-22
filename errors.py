@@ -1,3 +1,7 @@
+"""
+Модуль проекта StKrautWeb для обработки ошибок 404 и 500.
+"""
+
 from flask import render_template
 
 from app import app

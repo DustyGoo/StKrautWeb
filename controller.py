@@ -1,3 +1,22 @@
+"""
+Модуль Controller для проекта StKrautWeb.
+
+Этот модуль содержит функции, которые обрабатывают запросы от пользователя.
+Файл взаимодействует с моделями для получения данных и передает эти данные в
+шаблоны для авторизации и отображения пользователям.
+Каждое представление ассоциировано с URL-адресами.
+
+Функции:
+- index(): Главная страница приложения.
+- ep1(), ep2(), ep3(): Страницы-визитки для отдельных альбомов
+- register(): Регистрирует нового пользователя в системе.
+- auth(): Авторизует пользователя в системе.
+- secrettrack(): Позволяет пользователю просматривать закрытую страницу.
+- logout(): Выполняет выход пользователя из системы.
+- redirect_to_sign(): Перенаправляет неавторизованных пользователей на
+страницу входа.
+"""
+
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -8,7 +27,7 @@ from models import User
 
 @app.route('/index', methods=['GET', 'POST'])
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def index() -> Response | str:
     """
     Главная страница сайта.
 
@@ -29,22 +48,22 @@ def index():
 
 # Функции ep1, ep2, ep3 - отвечают за отдельные тупиковые страницы сайта
 @app.route('/ep1')
-def ep1():
+def ep1() -> Response | str:
     return render_template('ep1.html')
 
 
 @app.route('/ep2')
-def ep2():
+def ep2() -> Response | str:
     return render_template('ep2.html')
 
 
 @app.route('/ep3')
-def ep3():
+def ep3() -> Response | str:
     return render_template('ep3.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
-def auth():
+def auth() -> Response | str:
     """
     Авторизация пользователя.
 
@@ -68,7 +87,7 @@ def auth():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():
+def register() -> Response | str:
     """
     Регистрация пользователя.
 
@@ -90,7 +109,7 @@ def register():
 
 @app.route('/secrettrack')
 @login_required
-def secrettrack():
+def secrettrack() -> Response | str:
     """
     Защищенная страница, требующая аутентификации пользователя.
     """
@@ -99,7 +118,7 @@ def secrettrack():
 
 @app.route('/logout')
 @login_required
-def logout():
+def logout() -> Response | str:
     """
     Функция выхода пользователя из аккаунта.
     """
@@ -111,6 +130,19 @@ def logout():
 def redirect_to_sign(response):
     """
     Перенаправление на страницу аутентификации в случае отсутствия авторизации
+
+    Эта функция вызывается автоматически после каждого запроса. Она проверяет
+    статусный код ответа. Если статусный код ответа равен 401 (Неавторизован),
+    происходит перенаправление пользователя на страницу регистрации и
+    авторизации. Это обеспечивает, что пользователи, пытающиеся получить
+    доступ к защищенным ресурсам без соответствующих прав доступа, будут
+    направлены к форме входа, вместо отображения стандартной страницы с
+    ошибкой 401.
+
+    :param response: Объект ответа Flask, который был
+    сгенерирован обработчиками запросов.
+    :return: Исходный объект ответа или объект
+    перенаправления на страницу авторизации.
     """
     if response.status_code == 401:
         return redirect(url_for('auth'))
